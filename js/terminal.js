@@ -307,9 +307,23 @@ class Terminal {
     this.writeLine('', '');
 
     // Phase 3 — banner
-    const bannerText = window.innerWidth < 768 ? 'N0CS' : 'N0CSPOCALYPSE';
-    this.writeLine(bannerText, 'eerie-glow mobile-banner');
-    await this._sleep(150);
+    if (window.innerWidth < 768) {
+      const banner = [
+        '  ███╗   ██╗ ██████╗  ██████╗███████╗',
+        '  ████╗  ██║██╔═══██╗██╔════╝██╔════╝',
+        '  ██╔██╗ ██║██║   ██║██║     ███████╗',
+        '  ██║╚██╗██║██║   ██║██║     ╚════██║',
+        '  ██║ ╚████║╚██████╔╝╚██████╗███████║',
+        '  ╚═╝  ╚═══╝ ╚═════╝  ╚═════╝╚══════╝',
+      ];
+      for (const row of banner) {
+        this.writeLine(row, 'eerie-glow');
+        await this._sleep(150);
+      }
+    } else {
+      this.writeLine('N0CSPOCALYPSE', 'eerie-glow mobile-banner');
+      await this._sleep(150);
+    }
 
     await this._sleep(800);
 
