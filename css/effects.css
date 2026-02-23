@@ -108,6 +108,17 @@
   animation: eerie-pulse 20s ease-in-out infinite;
 }
 
+.terminal-output .line.mobile-banner {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-align: center;
+  line-height: 1.4;
+  padding: 0.5em 0;
+  white-space: normal;
+  word-break: normal;
+}
+
 @keyframes eerie-pulse {
   0%, 100% {
     color: #00ff41;
