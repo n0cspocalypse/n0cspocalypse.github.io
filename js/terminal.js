@@ -307,7 +307,7 @@ class Terminal {
     this.writeLine('', '');
 
     // Phase 3 — banner
-    const isMobile = window.innerWidth < 768;
+    const isMobile = window.innerWidth < 1100;
 
     if (isMobile) {
       // Clean text banner for mobile — no ASCII art wrapping issues

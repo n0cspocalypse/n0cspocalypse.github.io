@@ -109,14 +109,15 @@
 }
 
 .terminal-output .line.mobile-banner {
-  font-size: 28px;
+  font-size: 36px;
   font-weight: 700;
-  letter-spacing: 4px;
+  letter-spacing: 6px;
   text-align: center;
   line-height: 1.4;
-  padding: 0.5em 0;
+  padding: 0.6em 0;
   white-space: normal;
   word-break: normal;
+  text-transform: uppercase;
 }
 
 @keyframes eerie-pulse {
