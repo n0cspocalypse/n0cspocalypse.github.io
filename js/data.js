@@ -9,7 +9,7 @@ const DATA = {
   title: 'Social Engineering Consultant | Cybersecurity Engineer',
 
   bio: {
-    short: 'Social engineering consultant and cybersecurity engineer specializing in corporate and nonprofit security assessments. I test the full attack surface — people, process, and technology.',
+    short: 'Social engineering consultant and cybersecurity engineer with 10+ years of corporate and nonprofit experience. I test the full attack surface — people, process, and technology.',
     focus: [
       'Social Engineering — Corporate & Nonprofit',
       'Business Process & Approval Pipeline Testing',
