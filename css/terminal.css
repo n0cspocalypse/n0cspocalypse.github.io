@@ -239,13 +239,15 @@
 @media (max-width: 768px) {
   .terminal {
     width: 96vw;
-    height: 75vh;
-    margin-top: 1.5vh;
+    height: 70vh;
+    height: 70dvh;
+    margin: 1vh auto;
     border-radius: 6px;
   }
 
   .terminal.gui-mode {
     height: 45vh;
+    height: 45dvh;
   }
 
   .command-palette {
@@ -263,11 +265,14 @@
 
   .terminal-output {
     overflow-x: hidden;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
 
   .terminal-output .line {
     word-break: break-word;
     overflow-wrap: break-word;
+    min-height: 1.3em;
   }
 
   .terminal-output .line.eerie-glow,
@@ -275,10 +280,13 @@
     font-size: 11px;
     line-height: 1.15;
     white-space: pre;
+    word-break: normal;
+    overflow-wrap: normal;
   }
 
   .terminal-output .line.centered {
     font-size: var(--font-size-sm);
+    white-space: normal;
   }
 
   .terminal-header {
@@ -293,22 +301,43 @@
 @media (max-width: 480px) {
   .terminal {
     width: 98vw;
-    height: 78vh;
-    margin-top: 1vh;
+    height: 68vh;
+    height: 68dvh;
+    margin: 0.5vh auto;
     border-radius: 4px;
   }
 
   .terminal-body {
-    padding: 0.5rem;
+    padding: 0.4rem;
   }
 
   .terminal-output .line.eerie-glow,
   .terminal-output .line.ascii {
-    font-size: 9px;
+    font-size: 8px;
+    letter-spacing: -0.5px;
   }
 
   .terminal-output .line.centered {
     font-size: 11px;
+  }
+
+  .terminal-output .line {
+    font-size: 12px;
+    min-height: 1.2em;
+    line-height: 1.4;
+  }
+
+  .terminal-output .line.heading {
+    font-size: 14px;
+  }
+
+  .terminal-output .line.sub-heading {
+    font-size: 12px;
+  }
+
+  .command-palette {
+    gap: 0.4rem;
+    padding: 0.5rem 0.75rem;
   }
 
   .command-palette button {

@@ -43,6 +43,8 @@ html {
   font-size: var(--font-size-base);
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
+  height: 100%;
+  height: -webkit-fill-available;
 }
 
 body {
@@ -50,6 +52,8 @@ body {
   background: var(--bg);
   color: var(--green);
   min-height: 100vh;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
   overflow-x: hidden;
   position: relative;
   -webkit-text-size-adjust: 100%;

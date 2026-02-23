@@ -13,9 +13,12 @@
     const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF<>/\\|{}[]!@#$%^&*';
 
     function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      columns = Math.floor(canvas.width / fontSize);
+      // Use documentElement dimensions to cover full page on iOS
+      const w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+      const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0, screen.height);
+      canvas.width = w;
+      canvas.height = h;
+      columns = Math.floor(w / fontSize);
       drops = new Array(columns).fill(1);
     }
 
@@ -39,6 +42,7 @@
 
     resize();
     window.addEventListener('resize', resize);
+    window.addEventListener('orientationchange', () => setTimeout(resize, 200));
     setInterval(draw, 66); // ~15fps
   }
 
