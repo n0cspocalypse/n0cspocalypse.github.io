@@ -306,8 +306,9 @@ class Terminal {
     this.writeLine('', '');
     this.writeLine('', '');
 
-    // Phase 3 — banner (clean text, readable at all sizes)
-    this.writeLine('N0CSPOCALYPSE', 'eerie-glow mobile-banner');
+    // Phase 3 — banner
+    const bannerText = window.innerWidth < 768 ? 'N0CS' : 'N0CSPOCALYPSE';
+    this.writeLine(bannerText, 'eerie-glow mobile-banner');
     await this._sleep(150);
 
     await this._sleep(800);
