@@ -254,6 +254,10 @@
     display: flex;
   }
 
+  .command-palette .hide-mobile {
+    display: none;
+  }
+
   .prompt-user, .prompt-at, .prompt-host, .prompt-sep {
     display: none;
   }
