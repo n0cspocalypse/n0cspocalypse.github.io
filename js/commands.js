@@ -127,8 +127,12 @@
     t.typeLines(lines);
   }, 'Show journey timeline');
 
-  /* --- skills --- */
+  /* --- skills (desktop only) --- */
   term.register('skills', (_args, t) => {
+    if (window.innerWidth < 768) {
+      t.writeLine('skills: not available on this device.', 'dim');
+      return;
+    }
     const lines = [
       { text: 'Skills', style: 'heading', delay: 0 },
       { text: '', style: '', delay: 0 },
