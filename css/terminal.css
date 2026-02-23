@@ -238,9 +238,10 @@
 
 @media (max-width: 768px) {
   .terminal {
-    width: 95vw;
-    height: 70vh;
-    margin-top: 2vh;
+    width: 96vw;
+    height: 75vh;
+    margin-top: 1.5vh;
+    border-radius: 6px;
   }
 
   .terminal.gui-mode {
@@ -256,22 +257,62 @@
   }
 
   .terminal-body {
-    padding: 0.75rem;
+    padding: 0.6rem;
+    overflow-x: hidden;
+  }
+
+  .terminal-output {
+    overflow-x: hidden;
+  }
+
+  .terminal-output .line {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .terminal-output .line.eerie-glow,
+  .terminal-output .line.ascii {
+    font-size: 11px;
+    line-height: 1.15;
+    white-space: pre;
+  }
+
+  .terminal-output .line.centered {
+    font-size: var(--font-size-sm);
   }
 
   .terminal-header {
     padding: 8px 12px;
+  }
+
+  .terminal-input {
+    font-size: 16px; /* prevents iOS zoom on focus */
   }
 }
 
 @media (max-width: 480px) {
   .terminal {
     width: 98vw;
-    height: 65vh;
-    border-radius: 6px;
+    height: 78vh;
+    margin-top: 1vh;
+    border-radius: 4px;
   }
 
+  .terminal-body {
+    padding: 0.5rem;
+  }
+
+  .terminal-output .line.eerie-glow,
   .terminal-output .line.ascii {
     font-size: 9px;
+  }
+
+  .terminal-output .line.centered {
+    font-size: 11px;
+  }
+
+  .command-palette button {
+    font-size: 11px;
+    padding: 5px 10px;
   }
 }
