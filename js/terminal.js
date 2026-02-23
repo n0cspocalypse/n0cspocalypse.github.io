@@ -306,27 +306,9 @@ class Terminal {
     this.writeLine('', '');
     this.writeLine('', '');
 
-    // Phase 3 — banner
-    const isMobile = window.innerWidth < 1100;
-
-    if (isMobile) {
-      // Clean text banner for mobile — no ASCII art wrapping issues
-      this.writeLine('N0CSPOCALYPSE', 'eerie-glow mobile-banner');
-      await this._sleep(150);
-    } else {
-      const banner = [
-        '  ███╗   ██╗ ██████╗  ██████╗███████╗██████╗  ██████╗  ██████╗ █████╗ ██╗  ██╗   ██╗██████╗ ███████╗███████╗',
-        '  ████╗  ██║██╔═══██╗██╔════╝██╔════╝██╔══██╗██╔═══██╗██╔════╝██╔══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔════╝██╔════╝',
-        '  ██╔██╗ ██║██║   ██║██║     ███████╗██████╔╝██║   ██║██║     ███████║██║   ╚████╔╝ ██████╔╝███████╗█████╗  ',
-        '  ██║╚██╗██║██║   ██║██║     ╚════██║██╔═══╝ ██║   ██║██║     ██╔══██║██║    ╚██╔╝  ██╔═══╝ ╚════██║██╔══╝  ',
-        '  ██║ ╚████║╚██████╔╝╚██████╗███████║██║     ╚██████╔╝╚██████╗██║  ██║███████╗██║   ██║     ███████║███████╗',
-        '  ╚═╝  ╚═══╝ ╚═════╝  ╚═════╝╚══════╝╚═╝      ╚═════╝  ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝   ╚═╝     ╚══════╝╚══════╝',
-      ];
-      for (const row of banner) {
-        this.writeLine(row, 'eerie-glow');
-        await this._sleep(150);
-      }
-    }
+    // Phase 3 — banner (clean text, readable at all sizes)
+    this.writeLine('N0CSPOCALYPSE', 'eerie-glow mobile-banner');
+    await this._sleep(150);
 
     await this._sleep(800);
 
