@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>N0CSPOCALYPSE</title>
+  <meta name="description" content="Cybersecurity engineer, social engineer, builder of autonomous defense systems.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/terminal.css">
+  <link rel="stylesheet" href="css/effects.css">
+</head>
+<body>
+  <!-- CRT Scanline Overlay -->
+  <div class="crt-overlay" aria-hidden="true"></div>
+
+  <!-- Matrix Rain Canvas -->
+  <canvas id="matrix-rain" aria-hidden="true"></canvas>
+
+  <!-- Terminal Window -->
+  <div id="terminal" class="terminal">
+    <div class="terminal-header">
+      <div class="terminal-buttons">
+        <span class="btn-close"></span>
+        <span class="btn-minimize"></span>
+        <span class="btn-maximize"></span>
+      </div>
+      <div class="terminal-title">n0cs@portfolio:~</div>
+      <div class="terminal-header-spacer"></div>
+    </div>
+    <div class="terminal-body" id="terminal-body">
+      <div id="terminal-output" class="terminal-output"></div>
+      <div class="terminal-input-line" id="input-line">
+        <span class="prompt"><span class="prompt-user">n0cs</span><span class="prompt-at">@</span><span class="prompt-host">portfolio</span><span class="prompt-sep">:</span><span class="prompt-dir">~</span><span class="prompt-dollar">$</span></span>
+        <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autofocus>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Command Palette -->
+  <div id="command-palette" class="command-palette">
+    <button data-cmd="help">help</button>
+    <button data-cmd="whoami">whoami</button>
+    <button data-cmd="ls projects">projects</button>
+    <button data-cmd="skills">skills</button>
+    <button data-cmd="history">history</button>
+    <button data-cmd="contact">contact</button>
+    <button data-cmd="gui">gui</button>
+  </div>
+
+  <!-- GUI Mode Sections (hidden by default) -->
+  <div id="gui-sections" class="gui-sections hidden">
+    <section id="gui-about" class="gui-section">
+      <h2 class="section-heading">// ABOUT</h2>
+      <div class="gui-content" id="gui-about-content"></div>
+    </section>
+    <section id="gui-contact" class="gui-section">
+      <h2 class="section-heading">// CONTACT</h2>
+      <div class="gui-content" id="gui-contact-content"></div>
+    </section>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/terminal.js"></script>
+  <script src="js/commands.js"></script>
+  <script src="js/effects.js"></script>
+</body>
+</html>

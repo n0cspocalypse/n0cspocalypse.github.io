@@ -1,0 +1,363 @@
+/* ============================================
+   DESIGN SYSTEM — CSS Custom Properties
+   ============================================ */
+:root {
+  --bg:         #0a0a0a;
+  --bg-light:   #111111;
+  --bg-card:    #0f0f0f;
+  --green:      #00ff41;
+  --green-dim:  #00cc33;
+  --cyan:       #00d4ff;
+  --amber:      #ffb000;
+  --red:        #ff0040;
+  --white:      #c0c0c0;
+  --gray:       #555555;
+  --gray-light: #888888;
+
+  --glow-green: 0 0 8px rgba(0, 255, 65, 0.4);
+  --glow-cyan:  0 0 8px rgba(0, 212, 255, 0.4);
+  --glow-amber: 0 0 8px rgba(255, 176, 0, 0.3);
+  --glow-red:   0 0 8px rgba(255, 0, 64, 0.4);
+
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', 'Consolas', monospace;
+  --font-size-base: 14px;
+  --font-size-sm: 12px;
+  --font-size-lg: 16px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 28px;
+
+  --radius: 8px;
+  --transition: 0.2s ease;
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: var(--font-size-base);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-mono);
+  background: var(--bg);
+  color: var(--green);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+::selection {
+  background: var(--green);
+  color: var(--bg);
+}
+
+a {
+  color: var(--cyan);
+  text-decoration: none;
+  transition: color var(--transition), text-shadow var(--transition);
+}
+
+a:hover {
+  color: var(--green);
+  text-shadow: var(--glow-green);
+}
+
+/* ============================================
+   GUI SECTIONS
+   ============================================ */
+.gui-sections {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.gui-sections.hidden {
+  display: none;
+}
+
+.gui-section {
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  border: 1px solid #1a1a1a;
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  position: relative;
+}
+
+.gui-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 0.5;
+}
+
+.section-heading {
+  font-size: var(--font-size-xl);
+  color: var(--cyan);
+  text-shadow: var(--glow-cyan);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+}
+
+/* --- About --- */
+.gui-about-text {
+  color: var(--white);
+  line-height: 1.8;
+  font-size: var(--font-size-sm);
+}
+
+.gui-about-text .focus-area {
+  color: var(--green);
+  font-weight: 500;
+}
+
+/* --- Project Grid --- */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.project-card {
+  background: var(--bg);
+  border: 1px solid #222;
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  cursor: default;
+}
+
+.project-card:hover {
+  border-color: var(--green-dim);
+  box-shadow: 0 0 16px rgba(0, 255, 65, 0.08);
+}
+
+.project-card .project-name {
+  color: var(--green);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.project-card .project-tagline {
+  color: var(--gray-light);
+  font-size: var(--font-size-sm);
+  margin-bottom: 0.75rem;
+}
+
+.project-card .project-desc {
+  color: var(--white);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+
+.project-card .project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.project-card .tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border: 1px solid #333;
+  border-radius: 3px;
+  color: var(--cyan);
+  background: rgba(0, 212, 255, 0.05);
+}
+
+/* --- Skills --- */
+.skills-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.skill-category {
+  background: var(--bg);
+  border: 1px solid #222;
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+.skill-category h3 {
+  color: var(--amber);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  margin-bottom: 1rem;
+  text-shadow: var(--glow-amber);
+}
+
+.skill-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.6rem;
+  gap: 0.75rem;
+}
+
+.skill-name {
+  color: var(--white);
+  font-size: var(--font-size-sm);
+  min-width: 110px;
+  flex-shrink: 0;
+}
+
+.skill-bar-track {
+  flex: 1;
+  height: 8px;
+  background: #1a1a1a;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--green);
+  box-shadow: var(--glow-green);
+  transition: width 0.8s ease;
+}
+
+.skill-bar-fill.level-5 { width: 100%; }
+.skill-bar-fill.level-4 { width: 80%; }
+.skill-bar-fill.level-3 { width: 60%; }
+.skill-bar-fill.level-2 { width: 40%; }
+.skill-bar-fill.level-1 { width: 20%; }
+
+/* --- Timeline --- */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--cyan), var(--green), var(--amber));
+  opacity: 0.3;
+}
+
+.timeline-entry {
+  position: relative;
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+}
+
+.timeline-entry::before {
+  content: '';
+  position: absolute;
+  left: -2rem;
+  top: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--green);
+  background: var(--bg);
+}
+
+.timeline-entry.type-milestone::before { border-color: var(--cyan); background: rgba(0, 212, 255, 0.2); }
+.timeline-entry.type-deploy::before    { border-color: var(--green); background: rgba(0, 255, 65, 0.2); }
+.timeline-entry.type-security::before  { border-color: var(--red); background: rgba(255, 0, 64, 0.2); }
+.timeline-entry.type-learning::before  { border-color: var(--amber); background: rgba(255, 176, 0, 0.2); }
+
+.timeline-date {
+  font-size: 11px;
+  color: var(--gray-light);
+  margin-bottom: 0.25rem;
+}
+
+.timeline-title {
+  color: var(--green);
+  font-weight: 500;
+  font-size: var(--font-size-base);
+  margin-bottom: 0.25rem;
+}
+
+.timeline-desc {
+  color: var(--white);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
+/* --- Contact --- */
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid #222;
+  border-radius: var(--radius);
+  color: var(--cyan);
+  font-size: var(--font-size-sm);
+  transition: all var(--transition);
+}
+
+.contact-link:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.15);
+  color: var(--green);
+}
+
+/* ============================================
+   MOBILE RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  :root {
+    --font-size-base: 13px;
+  }
+
+  .gui-sections {
+    padding: 1rem;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-container {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-name {
+    min-width: 80px;
+  }
+
+  .timeline {
+    padding-left: 1.5rem;
+  }
+
+  .contact-links {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --font-size-base: 12px;
+  }
+}

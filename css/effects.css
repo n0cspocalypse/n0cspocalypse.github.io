@@ -1,0 +1,260 @@
+/* ============================================
+   CRT SCANLINE OVERLAY
+   ============================================ */
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.03) 0px,
+    rgba(0, 0, 0, 0.03) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: multiply;
+}
+
+/* ============================================
+   MATRIX RAIN CANVAS
+   ============================================ */
+#matrix-rain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.04;
+}
+
+/* ============================================
+   CURSOR BLINK
+   ============================================ */
+.terminal-input {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { border-right: 2px solid var(--green); }
+  50%      { border-right: 2px solid transparent; }
+}
+
+.terminal-input:focus {
+  animation: none;
+  border-right: 2px solid var(--green);
+}
+
+/* ============================================
+   TEXT GLOW
+   ============================================ */
+.glow-text {
+  text-shadow: var(--glow-green);
+}
+
+.glow-cyan {
+  text-shadow: var(--glow-cyan);
+}
+
+/* ============================================
+   IDLE FLICKER
+   ============================================ */
+.flicker {
+  animation: idle-flicker 0.15s ease-in-out;
+}
+
+@keyframes idle-flicker {
+  0%   { opacity: 1; }
+  25%  { opacity: 0.85; }
+  50%  { opacity: 0.95; }
+  75%  { opacity: 0.88; }
+  100% { opacity: 1; }
+}
+
+/* ============================================
+   GLITCH EFFECT
+   ============================================ */
+.glitch {
+  animation: glitch-anim 0.3s ease-in-out;
+}
+
+@keyframes glitch-anim {
+  0%   { transform: translate(0); filter: none; }
+  10%  { transform: translate(-2px, 1px); filter: hue-rotate(90deg); }
+  20%  { transform: translate(2px, -1px); filter: hue-rotate(-90deg); }
+  30%  { transform: translate(-1px, 2px); clip-path: inset(20% 0 40% 0); }
+  40%  { transform: translate(1px, -2px); clip-path: inset(60% 0 10% 0); }
+  50%  { transform: translate(-2px, 0); filter: saturate(2); }
+  60%  { transform: translate(2px, 1px); clip-path: inset(30% 0 30% 0); }
+  70%  { transform: translate(0, -1px); filter: brightness(1.5); }
+  80%  { transform: translate(-1px, 0); clip-path: none; }
+  90%  { transform: translate(1px, 1px); filter: none; }
+  100% { transform: translate(0); filter: none; clip-path: none; }
+}
+
+/* ============================================
+   EERIE BANNER GLOW
+   ============================================ */
+.terminal-output .line.eerie-glow {
+  color: var(--green);
+  font-size: var(--font-size-sm);
+  line-height: 1.2;
+  animation: eerie-pulse 20s ease-in-out infinite;
+}
+
+@keyframes eerie-pulse {
+  0%, 100% {
+    color: #00ff41;
+    text-shadow:
+      0 0 4px rgba(0, 255, 65, 0.5),
+      0 0 12px rgba(0, 255, 65, 0.3),
+      0 0 30px rgba(0, 255, 65, 0.15);
+    opacity: 0.9;
+  }
+  14% {
+    color: #00ff41;
+    text-shadow:
+      0 0 8px rgba(0, 255, 65, 0.8),
+      0 0 25px rgba(0, 255, 65, 0.5),
+      0 0 50px rgba(0, 255, 65, 0.2);
+    opacity: 1;
+  }
+  28% {
+    color: #00d4ff;
+    text-shadow:
+      0 0 8px rgba(0, 212, 255, 0.8),
+      0 0 25px rgba(0, 212, 255, 0.5),
+      0 0 60px rgba(0, 212, 255, 0.2);
+    opacity: 1;
+  }
+  42% {
+    color: #bf00ff;
+    text-shadow:
+      0 0 8px rgba(191, 0, 255, 0.8),
+      0 0 25px rgba(191, 0, 255, 0.5),
+      0 0 60px rgba(191, 0, 255, 0.2);
+    opacity: 0.95;
+  }
+  56% {
+    color: #ff0040;
+    text-shadow:
+      0 0 8px rgba(255, 0, 64, 0.8),
+      0 0 25px rgba(255, 0, 64, 0.5),
+      0 0 60px rgba(255, 0, 64, 0.2);
+    opacity: 1;
+  }
+  70% {
+    color: #ffb000;
+    text-shadow:
+      0 0 8px rgba(255, 176, 0, 0.8),
+      0 0 25px rgba(255, 176, 0, 0.5),
+      0 0 60px rgba(255, 176, 0, 0.2);
+    opacity: 0.95;
+  }
+  85% {
+    color: #00d4ff;
+    text-shadow:
+      0 0 6px rgba(0, 212, 255, 0.6),
+      0 0 20px rgba(0, 212, 255, 0.35),
+      0 0 45px rgba(0, 212, 255, 0.15);
+    opacity: 0.92;
+  }
+}
+
+/* ============================================
+   BOOT SEQUENCE FADE-IN
+   ============================================ */
+.boot-line {
+  opacity: 0;
+  animation: boot-appear 0.1s forwards;
+}
+
+@keyframes boot-appear {
+  to { opacity: 1; }
+}
+
+/* ============================================
+   TYPING CURSOR FOR OUTPUT
+   ============================================ */
+.typing-cursor::after {
+  content: '\2588';
+  color: var(--green);
+  animation: blink-block 0.7s step-end infinite;
+}
+
+@keyframes blink-block {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+/* ============================================
+   NEON PULSE (for GUI skill bars)
+   ============================================ */
+@keyframes neon-pulse {
+  0%, 100% { box-shadow: 0 0 4px rgba(0, 255, 65, 0.3); }
+  50%      { box-shadow: 0 0 12px rgba(0, 255, 65, 0.6); }
+}
+
+.skill-bar-fill {
+  animation: neon-pulse 2s ease-in-out infinite;
+}
+
+/* ============================================
+   GUI SECTION ENTRANCE
+   ============================================ */
+.gui-section {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: section-enter 0.4s ease forwards;
+}
+
+.gui-section:nth-child(1) { animation-delay: 0.1s; }
+.gui-section:nth-child(2) { animation-delay: 0.2s; }
+.gui-section:nth-child(3) { animation-delay: 0.3s; }
+.gui-section:nth-child(4) { animation-delay: 0.4s; }
+.gui-section:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes section-enter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .crt-overlay {
+    display: none;
+  }
+
+  #matrix-rain {
+    display: none;
+  }
+
+  .terminal-input {
+    animation: none;
+    border-right: 2px solid var(--green);
+  }
+
+  .skill-bar-fill {
+    animation: none;
+  }
+
+  .gui-section {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .terminal-output .line {
+    animation: none;
+    opacity: 1;
+  }
+}
