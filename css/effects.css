@@ -261,10 +261,12 @@
 }
 
 @keyframes blackout {
-  0%   { opacity: 1; }
-  30%  { opacity: 0; }
-  50%  { opacity: 0; }
-  55%  { opacity: 0.6; filter: brightness(2); }
+  0%   { opacity: 1; filter: none; }
+  20%  { opacity: 0; filter: none; }
+  50%  { opacity: 0; filter: none; }
+  55%  { opacity: 1; filter: brightness(3) saturate(0); }
+  60%  { opacity: 0.1; filter: none; }
+  70%  { opacity: 0.9; filter: brightness(2); }
   100% { opacity: 1; filter: none; }
 }
 
