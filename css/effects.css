@@ -38,17 +38,7 @@
    CURSOR BLINK
    ============================================ */
 .terminal-input {
-  animation: cursor-blink 1s step-end infinite;
-}
-
-@keyframes cursor-blink {
-  0%, 100% { border-right: 2px solid var(--green); }
-  50%      { border-right: 2px solid transparent; }
-}
-
-.terminal-input:focus {
-  animation: none;
-  border-right: 2px solid var(--green);
+  caret-color: var(--green);
 }
 
 /* ============================================
