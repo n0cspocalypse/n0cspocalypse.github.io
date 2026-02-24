@@ -83,4 +83,26 @@
     origExec(raw);
   };
 
+  /* --- Traffic Light Easter Eggs --- */
+  const easterEggs = [
+    { selector: '.btn-close',    fx: 'fx-blackout' },
+    { selector: '.btn-minimize', fx: 'fx-shrink' },
+    { selector: '.btn-maximize', fx: 'fx-zoom' },
+  ];
+
+  easterEggs.forEach(({ selector, fx }) => {
+    const btn = document.querySelector(selector);
+    if (btn) {
+      btn.addEventListener('click', () => {
+        if (Math.random() < 0.15) {
+          const termEl = document.getElementById('terminal');
+          if (termEl) {
+            termEl.classList.add(fx);
+            setTimeout(() => termEl.classList.remove(fx), 300);
+          }
+        }
+      });
+    }
+  });
+
 })();
