@@ -75,7 +75,7 @@
       return;
     }
 
-    t.writeLine(`cat: ${args.join(' ')}: No such file or directory`, 'error');
+    t.writeLine(`cat: ${t._escapeHtml(args.join(' '))}: No such file or directory`, 'error');
     t.writeLine('Try: cat about.txt, or cat &lt;project-id&gt;', 'dim');
   }, 'Read a file (about.txt, <project-id>)');
 
@@ -100,7 +100,7 @@
       return;
     }
 
-    t.writeLine(`ls: cannot access '${target}': Not a directory`, 'error');
+    t.writeLine(`ls: cannot access '${t._escapeHtml(target)}': Not a directory`, 'error');
   }, 'List projects');
 
   /* --- history --- */
@@ -236,7 +236,7 @@
   }, 'Show session uptime', null, true);
 
   term.register('echo', (args, t) => {
-    t.writeLine(args.join(' '), 'white');
+    t.writeLine(t._escapeHtml(args.join(' ')), 'white');
   }, 'Print text', null, true);
 
   term.register('pwd', (_args, t) => {
@@ -260,13 +260,14 @@
 
   term.register('rm', (args, t) => {
     const target = args.join(' ');
+    const safe = t._escapeHtml(target);
     if (target.includes('-rf') || target.includes('-r')) {
       t.typeLines([
-        { text: `rm: refusing to destroy ${target}`, style: 'error', delay: 40 },
+        { text: `rm: refusing to destroy ${safe}`, style: 'error', delay: 40 },
         { text: 'The defense grid does not approve of this action.', style: 'red', delay: 0 },
       ]);
     } else {
-      t.writeLine(`rm: cannot remove '${target}': Operation not permitted`, 'error');
+      t.writeLine(`rm: cannot remove '${safe}': Operation not permitted`, 'error');
     }
   }, 'Remove files (blocked)', null, true);
 
