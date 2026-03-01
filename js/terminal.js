@@ -93,7 +93,26 @@ class Terminal {
     const partial = this.input.value.trim().toLowerCase();
     if (!partial) return;
 
-    const matches = Object.keys(this.commands).filter(c => c.startsWith(partial));
+    // Match single-word commands and multi-word commands (e.g. "ls p" -> "ls projects")
+    const matches = Object.keys(this.commands).filter(c =>
+      c.startsWith(partial) || (c.includes(' ') && c.startsWith(partial))
+    );
+    // Also check if input looks like "cmd arg" and complete against known multi-word commands
+    const parts = partial.split(/\s+/);
+    if (parts.length > 1) {
+      const multiMatches = Object.keys(this.commands).filter(c =>
+        c.includes(' ') && c.startsWith(partial)
+      );
+      if (multiMatches.length === 1) {
+        this.input.value = multiMatches[0];
+        return;
+      } else if (multiMatches.length > 1) {
+        this._echoCommand(partial);
+        this.writeLine(multiMatches.join('  '), 'white');
+        return;
+      }
+    }
+
     if (matches.length === 1) {
       this.input.value = matches[0];
     } else if (matches.length > 1) {
@@ -268,10 +287,50 @@ class Terminal {
 
   /* --- Boot Sequence --- */
   async boot() {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     this.inputLine.style.display = 'none';
 
     // Phase 1 — system line
     this.writeLine('N0CSPOCALYPSE SYSTEMS v2.0.26 — SECURE BOOT', 'dim');
+
+    if (reduceMotion) {
+      // Skip animations — render everything instantly
+      this.writeLine('Follow the white rabbit.', 'green bold');
+      this.writeLine('', '');
+      this.writeLine('', '');
+
+      const banner = window.innerWidth < 768
+        ? [
+            '  ███╗   ██╗ ██████╗  ██████╗███████╗',
+            '  ████╗  ██║██╔═══██╗██╔════╝██╔════╝',
+            '  ██╔██╗ ██║██║   ██║██║     ███████╗',
+            '  ██║╚██╗██║██║   ██║██║     ╚════██║',
+            '  ██║ ╚████║╚██████╔╝╚██████╗███████║',
+            '  ╚═╝  ╚═══╝ ╚═════╝  ╚═════╝╚══════╝',
+          ]
+        : [
+            '  ███╗   ██╗ ██████╗  ██████╗███████╗██████╗  ██████╗  ██████╗ █████╗ ██╗  ██╗   ██╗██████╗ ███████╗███████╗',
+            '  ████╗  ██║██╔═══██╗██╔════╝██╔════╝██╔══██╗██╔═══██╗██╔════╝██╔══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔════╝██╔════╝',
+            '  ██╔██╗ ██║██║   ██║██║     ███████╗██████╔╝██║   ██║██║     ███████║██║   ╚████╔╝ ██████╔╝███████╗█████╗  ',
+            '  ██║╚██╗██║██║   ██║██║     ╚════██║██╔═══╝ ██║   ██║██║     ██╔══██║██║    ╚██╔╝  ██╔═══╝ ╚════██║██╔══╝  ',
+            '  ██║ ╚████║╚██████╔╝╚██████╗███████║██║     ╚██████╔╝╚██████╗██║  ██║███████╗██║   ██║     ███████║███████╗',
+            '  ╚═╝  ╚═══╝ ╚═════╝  ╚═════╝╚══════╝╚═╝      ╚═════╝  ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝   ╚═╝     ╚══════╝╚══════╝',
+          ];
+      banner.forEach(row => this.writeLine(row, 'eerie-glow'));
+
+      this.writeLine('', '');
+      this.writeLine(DATA.title, 'cyan bold centered');
+      this.writeLine(DATA.bio.short, 'dim centered');
+      this.writeLine('', '');
+      this.writeLine('Type <span style="color:var(--green);font-weight:700">help</span> to see available commands.', 'white centered');
+      this.writeLine('', '');
+
+      this.inputLine.style.display = 'flex';
+      this.input.focus();
+      this._scrollToBottom();
+      return;
+    }
+
     await this._sleep(1200);
 
     // Phase 2 — the white rabbit, typed slow

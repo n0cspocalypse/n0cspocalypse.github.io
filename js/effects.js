@@ -9,7 +9,11 @@
   if (canvas) {
     const ctx = canvas.getContext('2d');
     let columns, drops;
+    let matrixRunning = true;
+    let matrixRAF = null;
+    let lastDraw = 0;
     const fontSize = 14;
+    const drawInterval = 66; // ~15fps
     const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF<>/\\|{}[]!@#$%^&*';
 
     function resize() {
@@ -22,7 +26,12 @@
       drops = new Array(columns).fill(1);
     }
 
-    function draw() {
+    function draw(timestamp) {
+      if (!matrixRunning) return;
+      matrixRAF = requestAnimationFrame(draw);
+      if (timestamp - lastDraw < drawInterval) return;
+      lastDraw = timestamp;
+
       ctx.fillStyle = 'rgba(10, 10, 10, 0.08)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -43,25 +52,42 @@
     resize();
     window.addEventListener('resize', resize);
     window.addEventListener('orientationchange', () => setTimeout(resize, 200));
-    setInterval(draw, 66); // ~15fps
+    matrixRAF = requestAnimationFrame(draw);
+
+    // Pause when tab is hidden to save CPU
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        matrixRunning = false;
+        if (matrixRAF) cancelAnimationFrame(matrixRAF);
+      } else {
+        matrixRunning = true;
+        lastDraw = 0;
+        matrixRAF = requestAnimationFrame(draw);
+      }
+    });
   }
 
   /* --- Idle Flicker --- */
   let idleTimer = null;
-  let flickerInterval = null;
+  let flickerTimeout = null;
+
+  function scheduleFlicker() {
+    flickerTimeout = setTimeout(() => {
+      const termEl = document.getElementById('terminal');
+      if (termEl) {
+        termEl.classList.add('flicker');
+        setTimeout(() => termEl.classList.remove('flicker'), 150);
+      }
+      scheduleFlicker();
+    }, 4000 + Math.random() * 3000);
+  }
 
   function resetIdle() {
     clearTimeout(idleTimer);
-    clearInterval(flickerInterval);
+    clearTimeout(flickerTimeout);
 
     idleTimer = setTimeout(() => {
-      flickerInterval = setInterval(() => {
-        const termEl = document.getElementById('terminal');
-        if (termEl) {
-          termEl.classList.add('flicker');
-          setTimeout(() => termEl.classList.remove('flicker'), 150);
-        }
-      }, 4000 + Math.random() * 3000);
+      scheduleFlicker();
     }, 30000); // 30s idle
   }
 

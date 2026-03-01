@@ -127,12 +127,9 @@
     t.typeLines(lines);
   }, 'Show journey timeline');
 
-  /* --- skills (desktop only) --- */
+  /* --- skills --- */
   term.register('skills', (_args, t) => {
-    if (window.innerWidth < 768) {
-      t.writeLine('skills: not available on this device.', 'dim');
-      return;
-    }
+    const compact = window.innerWidth < 768;
     const lines = [
       { text: 'Skills', style: 'heading', delay: 0 },
       { text: '', style: '', delay: 0 },
@@ -141,10 +138,14 @@
     DATA.skills.forEach(cat => {
       lines.push({ text: `  ${cat.category}`, style: 'sub-heading', delay: 30 });
       cat.items.forEach(skill => {
-        const filled = '\u2588'.repeat(skill.level);
-        const empty  = '\u2591'.repeat(5 - skill.level);
-        const pad = ' '.repeat(Math.max(1, 20 - skill.name.length));
-        lines.push({ text: `    ${skill.name}${pad}<span style="color:var(--green)">${filled}</span><span style="color:#333">${empty}</span> ${skill.level}/5`, style: 'white', delay: 40 });
+        if (compact) {
+          lines.push({ text: `    ${skill.name} <span style="color:var(--green)">${skill.level}/5</span>`, style: 'white', delay: 30 });
+        } else {
+          const filled = '\u2588'.repeat(skill.level);
+          const empty  = '\u2591'.repeat(5 - skill.level);
+          const pad = ' '.repeat(Math.max(1, 20 - skill.name.length));
+          lines.push({ text: `    ${skill.name}${pad}<span style="color:var(--green)">${filled}</span><span style="color:#333">${empty}</span> ${skill.level}/5`, style: 'white', delay: 40 });
+        }
       });
       lines.push({ text: '', style: '', delay: 0 });
     });
