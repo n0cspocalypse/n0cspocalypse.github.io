@@ -109,6 +109,42 @@
     origExec(raw);
   };
 
+  /* --- White Rabbit Easter Egg --- */
+  let rabbitActive = false;
+  let rabbitIdleTimer = null;
+  let rabbitInterval = null;
+
+  function spawnRabbit() {
+    if (rabbitActive) return;
+    if (typeof term !== 'undefined' && term.isTyping) return;
+    rabbitActive = true;
+    const el = document.createElement('div');
+    el.className = 'white-rabbit';
+    if (Math.random() < 0.5) el.style.animationDuration = '0.6s, 12s, 2.5s';
+    document.body.appendChild(el);
+    el.addEventListener('animationend', function (e) {
+      if (e.animationName === 'bunny-cross') {
+        el.remove();
+        rabbitActive = false;
+      }
+    });
+  }
+
+  function resetRabbitIdle() {
+    clearTimeout(rabbitIdleTimer);
+    clearInterval(rabbitInterval);
+    rabbitIdleTimer = setTimeout(function () {
+      rabbitInterval = setInterval(function () {
+        if (Math.random() < 0.2) spawnRabbit();
+      }, 30000 + Math.random() * 30000);
+    }, 60000);
+  }
+
+  document.addEventListener('keydown', resetRabbitIdle);
+  document.addEventListener('mousemove', resetRabbitIdle);
+  document.addEventListener('touchstart', resetRabbitIdle);
+  resetRabbitIdle();
+
   /* --- Traffic Light Easter Eggs --- */
   const easterEggs = [
     { selector: '.btn-close',    fx: 'fx-blackout' },

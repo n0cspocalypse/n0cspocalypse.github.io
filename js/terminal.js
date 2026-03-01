@@ -25,6 +25,12 @@ class Terminal {
     // Keyboard input
     this.input.addEventListener('keydown', (e) => this._onKeyDown(e));
 
+    // Sync input width to content so block cursor follows text
+    this._sizer = document.createElement('span');
+    this._sizer.style.cssText = 'position:absolute;visibility:hidden;white-space:pre;font:inherit';
+    this.inputLine.appendChild(this._sizer);
+    this.input.addEventListener('input', () => this._syncWidth());
+
     // Mobile command palette
     document.querySelectorAll('.command-palette button').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -32,6 +38,11 @@ class Terminal {
         if (cmd) this.exec(cmd);
       });
     });
+  }
+
+  _syncWidth() {
+    this._sizer.textContent = this.input.value || '';
+    this.input.style.width = (this._sizer.offsetWidth + 1) + 'px';
   }
 
   _onKeyDown(e) {
@@ -87,6 +98,7 @@ class Terminal {
         }
         break;
     }
+    requestAnimationFrame(() => this._syncWidth());
   }
 
   _tabComplete() {
@@ -105,6 +117,7 @@ class Terminal {
       );
       if (multiMatches.length === 1) {
         this.input.value = multiMatches[0];
+        this._syncWidth();
         return;
       } else if (multiMatches.length > 1) {
         this._echoCommand(partial);
@@ -115,6 +128,7 @@ class Terminal {
 
     if (matches.length === 1) {
       this.input.value = matches[0];
+      this._syncWidth();
     } else if (matches.length > 1) {
       this._echoCommand(partial);
       this.writeLine(matches.join('  '), 'white');

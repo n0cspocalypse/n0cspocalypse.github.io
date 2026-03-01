@@ -282,6 +282,63 @@
 }
 
 /* ============================================
+   WHITE RABBIT EASTER EGG
+   ============================================ */
+.white-rabbit {
+  position: fixed;
+  bottom: 10px;
+  width: 64px;
+  height: 64px;
+  background: url('../assets/bunny-run.png') 0 0 / 800% 100%;
+  image-rendering: pixelated;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.35;
+  animation:
+    bunny-run 0.6s steps(8) infinite,
+    bunny-cross 6s linear forwards,
+    bunny-glitch 2.5s steps(1) infinite;
+}
+
+@keyframes bunny-run {
+  to { background-position: -512px 0; }
+}
+
+@keyframes bunny-cross {
+  0%   { transform: translateX(-80px); }
+  15%  { transform: translateX(8vw); }
+  20%  { transform: translateX(18vw); }
+  35%  { transform: translateX(28vw); }
+  38%  { transform: translateX(40vw); }
+  55%  { transform: translateX(48vw); }
+  58%  { transform: translateX(56vw); }
+  60%  { transform: translateX(65vw); }
+  78%  { transform: translateX(72vw); }
+  82%  { transform: translateX(85vw); }
+  100% { transform: translateX(100vw); }
+}
+
+@keyframes bunny-glitch {
+  0%   { opacity: 0.35; filter: none; }
+  12%  { opacity: 0.35; filter: none; }
+  13%  { opacity: 0; filter: none; }
+  22%  { opacity: 0; filter: none; }
+  23%  { opacity: 0.5; filter: brightness(2) hue-rotate(40deg); }
+  26%  { opacity: 0.35; filter: none; }
+  50%  { opacity: 0.35; filter: none; }
+  51%  { opacity: 0; filter: none; }
+  62%  { opacity: 0; filter: none; }
+  63%  { opacity: 0.45; filter: brightness(1.8); }
+  66%  { opacity: 0.35; filter: none; }
+  82%  { opacity: 0.35; filter: none; }
+  83%  { opacity: 0; filter: none; }
+  88%  { opacity: 0; filter: none; }
+  89%  { opacity: 0.55; filter: brightness(2) saturate(2); }
+  92%  { opacity: 0.35; filter: none; }
+  100% { opacity: 0.35; filter: none; }
+}
+
+/* ============================================
    REDUCED MOTION
    ============================================ */
 @media (prefers-reduced-motion: reduce) {
@@ -311,5 +368,9 @@
   .terminal-output .line {
     animation: none;
     opacity: 1;
+  }
+
+  .white-rabbit {
+    display: none;
   }
 }
