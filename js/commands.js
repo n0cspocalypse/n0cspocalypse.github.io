@@ -404,8 +404,9 @@
 
   // Handle browser back/forward
   let hashChanging = false;
+  let bootComplete = false;
   window.addEventListener('hashchange', () => {
-    if (hashChanging) return;
+    if (hashChanging || !bootComplete) return;
     const cmd = ROUTES[location.hash];
     if (cmd) {
       hashChanging = true;
@@ -418,6 +419,7 @@
   const origBoot = term.boot.bind(term);
   term.boot = async function () {
     await origBoot();
+    bootComplete = true;
     const cmd = ROUTES[location.hash];
     if (cmd) {
       setTimeout(() => term.exec(cmd), 300);

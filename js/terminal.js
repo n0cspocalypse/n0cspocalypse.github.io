@@ -195,7 +195,7 @@ class Terminal {
       }
     }
 
-    this.writeLine(`command not found: ${raw}`, 'error');
+    this.writeLine(`command not found: ${this._escapeHtml(raw)}`, 'error');
     this.writeLine('Type "help" for available commands.', 'dim');
   }
 
@@ -317,7 +317,7 @@ class Terminal {
     this.inputLine.style.display = 'none';
 
     // Phase 1 — system line
-    this.writeLine('N0CSPOCALYPSE SYSTEMS v2.0.26 — SECURE BOOT', 'dim');
+    this.writeLine('N0CSPOCALYPSE SYSTEMS v2.1.0 — SECURE BOOT', 'dim');
 
     if (reduceMotion) {
       // Skip animations — render everything instantly
