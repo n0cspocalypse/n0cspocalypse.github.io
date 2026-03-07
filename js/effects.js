@@ -50,7 +50,11 @@
     }
 
     resize();
-    window.addEventListener('resize', resize);
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resize, 150);
+    });
     window.addEventListener('orientationchange', () => setTimeout(resize, 200));
     matrixRAF = requestAnimationFrame(draw);
 
