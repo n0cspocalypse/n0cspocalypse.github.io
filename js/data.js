@@ -216,6 +216,5 @@ const DATA = {
   contact: [
     { label: 'GitHub', url: 'https://github.com/n0cspocalypse', icon: '[gh]', note: 'github.com/n0cspocalypse' },
     { label: 'X', url: 'https://x.com/n0cspocalypse', icon: '[x]', note: '@n0cspocalypse' },
-    { label: 'Email', url: 'mailto:n0ckywoky@proton.me', icon: '[em]', note: 'n0ckywoky@proton.me' },
   ],
 };
