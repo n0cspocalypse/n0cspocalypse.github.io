@@ -222,6 +222,27 @@
     }
   }, 'Toggle GUI mode');
 
+  /* --- resume --- */
+  term.register('resume', (_args, t) => {
+    const r = DATA.resume;
+    const lines = [
+      { text: 'Resume', style: 'heading', delay: 0 },
+      { text: '', style: '', delay: 0 },
+    ];
+    r.summary.forEach(line => {
+      lines.push({ text: '  ' + line, style: 'white', delay: 40 });
+    });
+    lines.push({ text: '', style: '', delay: 0 });
+    lines.push({ text: '  <a href="' + r.file + '" download="n0cspocalypse-resume.pdf">[ DOWNLOAD RESUME PDF ]</a>', style: 'link', delay: 0 });
+    lines.push({ text: '', style: '', delay: 0 });
+    lines.push({ text: '  For inquiries, reach out via socials:', style: 'dim', delay: 0 });
+    DATA.contact.forEach(c => {
+      lines.push({ text: '    ' + c.icon + ' <a href="' + c.url + '" target="_blank" rel="noopener">' + (c.note || c.label) + '</a>', style: 'link', delay: 30 });
+    });
+    lines.push({ text: '', style: '', delay: 0 });
+    t.typeLines(lines);
+  }, 'Download resume + contact info');
+
   /* --- date --- */
   term.register('date', (_args, t) => {
     t.writeLine(new Date().toString(), 'white');

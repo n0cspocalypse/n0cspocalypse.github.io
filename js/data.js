@@ -217,4 +217,14 @@ const DATA = {
     { label: 'GitHub', url: 'https://github.com/n0cspocalypse', icon: '[gh]', note: 'github.com/n0cspocalypse' },
     { label: 'X', url: 'https://x.com/n0cspocalypse', icon: '[x]', note: '@n0cspocalypse' },
   ],
+
+  resume: {
+    file: 'assets/resume.pdf',
+    summary: [
+      'Social engineering consultant and cybersecurity engineer.',
+      'Specializing in corporate and nonprofit security assessments.',
+      'Full-scope human layer testing: pretexting, vishing, phishing, physical security.',
+      'Collaborative engagements across network, cloud, and offensive security.',
+    ],
+  },
 };
