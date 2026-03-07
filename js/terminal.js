@@ -254,14 +254,24 @@ class Terminal {
         line.innerHTML = text;
         await this._sleep(lineDelay);
       } else {
-        // Character-by-character typing at ~11ms/char
-        const charDelay = 11;
-        // Strip HTML tags to get the raw text for typing, then reveal the full HTML at the end
         const raw = text.replace(/<[^>]*>/g, '');
-        for (let i = 0; i < raw.length; i++) {
-          line.textContent = raw.substring(0, i + 1);
-          this._scrollToBottom();
-          await this._sleep(charDelay);
+        if (raw.length > 200) {
+          // Batch render in chunks of 4 chars at 8ms for long text
+          const chunkSize = 4;
+          const chunkDelay = 8;
+          for (let i = 0; i < raw.length; i += chunkSize) {
+            line.textContent = raw.substring(0, Math.min(i + chunkSize, raw.length));
+            this._scrollToBottom();
+            await this._sleep(chunkDelay);
+          }
+        } else {
+          // Character-by-character at 11ms for short text
+          const charDelay = 11;
+          for (let i = 0; i < raw.length; i++) {
+            line.textContent = raw.substring(0, i + 1);
+            this._scrollToBottom();
+            await this._sleep(charDelay);
+          }
         }
         // Swap in the full HTML version with styling
         line.innerHTML = text;
