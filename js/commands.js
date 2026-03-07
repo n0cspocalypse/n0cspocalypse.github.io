@@ -372,6 +372,59 @@
   }
 
   /* =============================================
+     HASH ROUTING
+     ============================================= */
+  const ROUTES = {
+    '#projects': 'ls projects',
+    '#skills': 'skills',
+    '#contact': 'contact',
+    '#history': 'history',
+    '#resume': 'resume',
+    '#about': 'whoami',
+  };
+
+  const COMMAND_TO_HASH = {
+    'ls projects': '#projects',
+    'skills': '#skills',
+    'contact': '#contact',
+    'history': '#history',
+    'resume': '#resume',
+    'whoami': '#about',
+  };
+
+  // Update hash when routable commands execute
+  const origExecRoute = term.exec.bind(term);
+  term.exec = function (raw) {
+    origExecRoute(raw);
+    const hash = COMMAND_TO_HASH[raw.toLowerCase()];
+    if (hash && location.hash !== hash) {
+      history.replaceState(null, '', hash);
+    }
+  };
+
+  // Handle browser back/forward
+  let hashChanging = false;
+  window.addEventListener('hashchange', () => {
+    if (hashChanging) return;
+    const cmd = ROUTES[location.hash];
+    if (cmd) {
+      hashChanging = true;
+      term.exec(cmd);
+      setTimeout(() => { hashChanging = false; }, 100);
+    }
+  });
+
+  // Execute hash route after boot
+  const origBoot = term.boot.bind(term);
+  term.boot = async function () {
+    await origBoot();
+    const cmd = ROUTES[location.hash];
+    if (cmd) {
+      setTimeout(() => term.exec(cmd), 300);
+    }
+  };
+
+  /* =============================================
      BOOT
      ============================================= */
   document.addEventListener('DOMContentLoaded', () => {
