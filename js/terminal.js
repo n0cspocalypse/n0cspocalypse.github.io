@@ -13,6 +13,7 @@ class Terminal {
     this.historyIndex = -1;
     this.isTyping = false;
     this.commandQueue = [];
+    this.skipBoot = false;
 
     this._bindEvents();
   }
@@ -296,6 +297,7 @@ class Terminal {
   }
 
   _sleep(ms) {
+    if (this.skipBoot) return Promise.resolve();
     return new Promise(r => setTimeout(r, ms));
   }
 
@@ -345,6 +347,17 @@ class Terminal {
       return;
     }
 
+    const skipHandler = () => {
+      this.skipBoot = true;
+    };
+    document.addEventListener('keydown', skipHandler, { once: true });
+    document.addEventListener('click', skipHandler, { once: true });
+
+    const skipHint = document.createElement('span');
+    skipHint.className = 'line dim';
+    skipHint.textContent = 'Press any key to skip...';
+    this.output.appendChild(skipHint);
+
     await this._sleep(1200);
 
     // Phase 2 — the white rabbit, typed slow
@@ -356,13 +369,17 @@ class Terminal {
       rabbitLine.textContent = rabbit.substring(0, i + 1);
       this._scrollToBottom();
       await this._sleep(90);
+      if (this.skipBoot) {
+        rabbitLine.textContent = rabbit + '.';
+        break;
+      }
     }
 
     await this._sleep(600);
 
     // Phase 2.5 — dots cycling on the same line
     const dotStart = Date.now();
-    while (Date.now() - dotStart < 3750) {
+    while (Date.now() - dotStart < 3750 && !this.skipBoot) {
       for (let d = 1; d <= 3; d++) {
         rabbitLine.textContent = rabbit + '.'.repeat(d);
         this._scrollToBottom();
@@ -419,6 +436,11 @@ class Terminal {
     this.writeLine('', '');
     this.writeLine('Type <span style="color:var(--green);font-weight:700">help</span> to see available commands.', 'white centered');
     this.writeLine('', '');
+
+    document.removeEventListener('keydown', skipHandler);
+    document.removeEventListener('click', skipHandler);
+    if (skipHint.parentNode) skipHint.remove();
+    this.skipBoot = false;
 
     this.inputLine.style.display = 'flex';
     this.input.focus();
