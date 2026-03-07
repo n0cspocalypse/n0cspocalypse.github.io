@@ -297,6 +297,49 @@
     aboutHtml += '</ul></div>';
     aboutEl.innerHTML = aboutHtml;
 
+    // Projects
+    const projectsEl = document.getElementById('gui-projects-content');
+    let projectsHtml = '<div class="project-grid">';
+    DATA.projects.forEach(p => {
+      projectsHtml += '<div class="project-card">';
+      projectsHtml += '<div class="project-name">' + p.name + '</div>';
+      projectsHtml += '<div class="project-tagline">' + p.tagline + '</div>';
+      projectsHtml += '<div class="project-desc">' + p.description + '</div>';
+      projectsHtml += '<div class="project-tags">' + p.tech.map(function(t) { return '<span class="tag">' + t + '</span>'; }).join('') + '</div>';
+      projectsHtml += '</div>';
+    });
+    projectsHtml += '</div>';
+    projectsEl.innerHTML = projectsHtml;
+
+    // Skills
+    const skillsEl = document.getElementById('gui-skills-content');
+    let skillsHtml = '<div class="skills-container">';
+    DATA.skills.forEach(cat => {
+      skillsHtml += '<div class="skill-category"><h3>' + cat.category + '</h3>';
+      cat.items.forEach(skill => {
+        skillsHtml += '<div class="skill-row">';
+        skillsHtml += '<span class="skill-name">' + skill.name + '</span>';
+        skillsHtml += '<div class="skill-bar-track"><div class="skill-bar-fill level-' + skill.level + '"></div></div>';
+        skillsHtml += '</div>';
+      });
+      skillsHtml += '</div>';
+    });
+    skillsHtml += '</div>';
+    skillsEl.innerHTML = skillsHtml;
+
+    // Timeline
+    const timelineEl = document.getElementById('gui-timeline-content');
+    let timelineHtml = '<div class="timeline">';
+    DATA.timeline.forEach(entry => {
+      timelineHtml += '<div class="timeline-entry type-' + entry.type + '">';
+      timelineHtml += '<div class="timeline-date">' + entry.date + '</div>';
+      timelineHtml += '<div class="timeline-title">' + entry.title + '</div>';
+      timelineHtml += '<div class="timeline-desc">' + entry.desc + '</div>';
+      timelineHtml += '</div>';
+    });
+    timelineHtml += '</div>';
+    timelineEl.innerHTML = timelineHtml;
+
     // Contact
     const contactEl = document.getElementById('gui-contact-content');
     contactEl.innerHTML = '<div class="contact-links">' + DATA.contact.map(c => {
